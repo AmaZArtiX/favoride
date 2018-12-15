@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.favoride.presentation.LoginController">
+   <children>
+      <Button layoutX="100.0" layoutY="215.0" mnemonicParsing="false" onAction="#login" text="Se connecter" />
+      <PasswordField fx:id="txtPassword" layoutX="67.0" layoutY="137.0" promptText="Mot de passe" />
+      <TextField fx:id="txtUserAddress" layoutX="67.0" layoutY="87.0" promptText="Adresse e-mail" />
+      <Label fx:id="lblStatus" layoutX="101.0" layoutY="180.0" prefHeight="20.0" prefWidth="100.0" textFill="RED" />
+   </children>
+</AnchorPane>

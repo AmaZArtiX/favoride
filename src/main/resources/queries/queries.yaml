@@ -1,0 +1,4 @@
+select:
+  user.by.address.password: SELECT *
+                            FROM user_usr
+                            WHERE usr_email_address = ? AND usr_password = ?;

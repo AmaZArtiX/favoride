@@ -1,0 +1,4 @@
+config:
+  url: jdbc:mysql://localhost:3306/db_favoride
+  username: root
+  password: FrIExi9t2ecH
