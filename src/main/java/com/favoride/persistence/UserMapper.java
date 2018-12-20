@@ -40,7 +40,7 @@ public class UserMapper extends GenericMapper {
 			user.setLastName(rs.getString("usr_last_name"));
 			user.setPassword(rs.getString("usr_password"));
 			user.setPhoneNumber(rs.getString("usr_phone_number"));
-			user.setBirthYear(rs.getInt("usr_birth_year"));
+			user.setBirthYear(rs.getDate("usr_birth_year").toLocalDate());
 			user.setGender(rs.getString("usr_gender"));
 			user.setBio(rs.getString("usr_bio"));
 		}

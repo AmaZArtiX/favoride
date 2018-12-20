@@ -1,5 +1,7 @@
 package com.favoride.domain;
 
+import java.time.LocalDate;
+
 public class User {
 
 	private int id;
@@ -7,7 +9,7 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private int birthYear;
+	private LocalDate birthYear;
 	private String phoneNumber;
 	private String gender;
 	private String bio;
@@ -46,10 +48,10 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getBirthYear() {
+	public LocalDate getBirthYear() {
 		return birthYear;
 	}
-	public void setBirthYear(int birthYear) {
+	public void setBirthYear(LocalDate birthYear) {
 		this.birthYear = birthYear;
 	}
 	public String getPhoneNumber() {

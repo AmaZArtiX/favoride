@@ -27,7 +27,7 @@ public class MainController implements Initializable {
 		// TODO Auto-generated method stub
 		AnchorPane pnlOne;
 		try {
-			pnlOne = FXMLLoader.load(this.getClass().getResource("/view/PanelOne.fxml"));
+			pnlOne = FXMLLoader.load(this.getClass().getResource("/view/Profile.fxml"));
 			 AnchorPane.setLeftAnchor(pnlOne, 0.0);
 			    AnchorPane.setTopAnchor(pnlOne, 0.0);
 			    AnchorPane.setRightAnchor(pnlOne, 0.0);
@@ -36,13 +36,12 @@ public class MainController implements Initializable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	   
+		}	   
 	}
 	
 	 @FXML
 	    private void btnPanel1Action(ActionEvent event) throws IOException {
-		 AnchorPane pnlOne = FXMLLoader.load(this.getClass().getResource("/view/PanelOne.fxml"));
+		 AnchorPane pnlOne = FXMLLoader.load(this.getClass().getResource("/view/Profile.fxml"));
 		    AnchorPane.setLeftAnchor(pnlOne, 0.0);
 		    AnchorPane.setTopAnchor(pnlOne, 0.0);
 		    AnchorPane.setRightAnchor(pnlOne, 0.0);
@@ -52,7 +51,7 @@ public class MainController implements Initializable {
 	 
 	 @FXML
 	 private void btnPanel2Action(ActionEvent event) throws IOException {
-		 AnchorPane pnlOne = FXMLLoader.load(this.getClass().getResource("/view/PanelTwo.fxml"));
+		 AnchorPane pnlOne = FXMLLoader.load(this.getClass().getResource("/view/Propose.fxml"));
 		    AnchorPane.setLeftAnchor(pnlOne, 0.0);
 		    AnchorPane.setTopAnchor(pnlOne, 0.0);
 		    AnchorPane.setRightAnchor(pnlOne, 0.0);

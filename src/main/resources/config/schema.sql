@@ -12,7 +12,7 @@ CREATE TABLE user_usr (
   usr_password VARCHAR(100) NOT NULL,
   usr_phone_number CHAR(10) NOT NULL,
   usr_gender ENUM('M', 'F') NOT NULL,
-  usr_birth_year INT(4) NOT NULL,
+  usr_birth_date DATE NOT NULL,
   usr_bio VARCHAR(250) NULL,
   PRIMARY KEY (usr_id)
 );

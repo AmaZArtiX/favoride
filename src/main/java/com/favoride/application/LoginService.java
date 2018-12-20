@@ -1,6 +1,8 @@
 package com.favoride.application;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 
 import com.favoride.domain.User;
 import com.favoride.persistence.UserMapper;
@@ -30,5 +32,20 @@ public class LoginService {
 		
 		this.user = userMapper.findUserByEmailAddressAndPassword(emailAddress, password);
 		return this.user;
+	}
+	
+	public int getUsersAge() {
+		
+		return Period.between(this.user.getBirthYear(), LocalDate.now()).getYears();
+	}
+	
+	public User getUser() {
+		
+		return this.user;
+	}
+	
+	public void setUser(User user) {
+		
+		this.user = user;
 	}
 }

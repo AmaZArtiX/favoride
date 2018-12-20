@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="600.0" maxWidth="650.0" minHeight="600.0" minWidth="650.0" prefHeight="600.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.favoride.presentation.ProposeController">
+   <children>
+      <TextField fx:id="lblDeparture" layoutX="251.0" layoutY="99.0" promptText="Départ" />
+      <TextField fx:id="lblArrival" layoutX="250.0" layoutY="168.0" promptText="Arrivée" />
+      <DatePicker fx:id="datePicker" layoutX="238.0" layoutY="243.0" />
+   </children>
+</AnchorPane>
