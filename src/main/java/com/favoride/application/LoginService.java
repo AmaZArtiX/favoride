@@ -27,7 +27,7 @@ public class LoginService {
 	
 	
 	public User findUserByEmailAddressAndPassword(String emailAddress, String password) throws SQLException {
-		// utilisation du mapper
+		
 		this.user = userMapper.findUserByEmailAddressAndPassword(emailAddress, password);
 		return this.user;
 	}
