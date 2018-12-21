@@ -72,4 +72,8 @@ public class User {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
+	@Override
+	public String toString() {
+		return firstName + " " + lastName;
+	}
 }

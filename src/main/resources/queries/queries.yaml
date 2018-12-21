@@ -2,3 +2,63 @@ select:
   user.by.address.password: SELECT *
                             FROM user_usr
                             WHERE usr_email_address = ? AND usr_password = ?;
+  user.by.id: SELECT *
+              FROM user_usr
+              WHERE usr_id = ?;
+
+  journeys.by.criterias: SELECT * 
+                         FROM journey_jrn j
+                         WHERE j.usr_id <> ?
+                         AND j.jrn_departure = ?
+                         AND j.jrn_arrival = ?
+                         AND j.jrn_date >= ?
+                         AND j.jrn_rate <= ?
+                         AND j.jrn_seats > 0;
+
+  journey.past.conductor: SELECT *
+                          FROM journey_jrn
+                          WHERE usr_id = ?
+                          AND jrn_date < ?;
+
+  journey.now.conductor: SELECT *
+                          FROM journey_jrn
+                          WHERE usr_id = ?
+                          AND jrn_date = ?;
+
+  journey.future.conductor: SELECT *
+                          FROM journey_jrn
+                          WHERE usr_id = ?
+                          AND jrn_date > ?;
+
+  journey.past.passenger: SELECT *
+                         FROM journey_jrn j
+                         JOIN passenger_psg p ON j.jrn_id = p.jrn_id
+                         WHERE p.usr_id = ?
+                         AND j.jrn_date < ?;
+
+  journey.now.passenger: SELECT *
+                         FROM journey_jrn j
+                         JOIN passenger_psg p ON j.jrn_id = p.jrn_id
+                         WHERE p.usr_id = ?
+                         AND j.jrn_date = ?;
+                         
+  journey.future.passenger: SELECT *
+                            FROM journey_jrn j
+                            JOIN passenger_psg p ON j.jrn_id = p.jrn_id
+                            WHERE p.usr_id = ?
+                            AND j.jrn_date > ?;
+                            
+  journey.passengers: SELECT usr_id
+                      FROM passenger_psg
+                      WHERE jrn_id = ?;
+insert:
+  journey: INSERT INTO journey_jrn(jrn_id, usr_id, jrn_departure, jrn_arrival, jrn_date, jrn_rate, jrn_seats) 
+           VALUES (default, ?, ?, ?, ?, ?, ?);
+           
+  passenger: INSERT INTO passenger_psg(jrn_id, usr_id)
+             VALUES (?, ?);
+
+update:
+  journey.decrement.seats: UPDATE journey_jrn 
+                           SET jrn_seats = jrn_seats = - 1
+                           WHERE jrn_id = ?;

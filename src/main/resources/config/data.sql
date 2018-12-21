@@ -4,4 +4,6 @@ INSERT INTO user_usr VALUES (default, "chtairi.yacine@outlook.fr", "Yacine", "Ch
 
 INSERT INTO journey_jrn VALUES (default, 1, 'Lille', 'Fourmies', '2018-12-25 08:00:00', 7.00, 3);
 
+INSERT INTO journey_jrn VALUES (default, 2, 'Fourmies', 'Lille', '2018-12-25 08:00:00', 7.00, 3);
+
 INSERT INTO passenger_psg VALUES (1, 2);

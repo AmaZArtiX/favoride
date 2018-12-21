@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 public class Main extends Application {
 	
@@ -17,6 +18,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Favoride");
 			primaryStage.setResizable(false);
+			primaryStage.getIcons().add(new Image("/images/logo.png"));
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

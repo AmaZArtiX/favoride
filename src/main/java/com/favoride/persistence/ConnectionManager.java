@@ -22,7 +22,6 @@ public class ConnectionManager {
 		this.url = bundle.getString("config.url");
 		this.username = bundle.getString("config.username");
 		this.password = bundle.getString("config.password");
-		System.out.println(this.url);
 		openConnection();
 	}
 	
