@@ -34,7 +34,14 @@ DROP TABLE IF EXISTS passenger_psg;
 CREATE TABLE passenger_psg (
   jrn_id INT NOT NULL,
   usr_id INT NOT NULL,
-  PRIMARY KEY(jrn_id, usr_id),
+  PRIMARY KEY (jrn_id, usr_id),
   FOREIGN KEY (jrn_id) REFERENCES journey_jrn(jrn_id) ON DELETE CASCADE,
   FOREIGN KEY (usr_id) REFERENCES user_usr(usr_id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS city_ct;
+CREATE TABLE city_ct (
+  ct_id INT NOT NULL AUTO_INCREMENT,
+  ct_name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (ct_id)
 );

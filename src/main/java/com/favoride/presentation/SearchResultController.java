@@ -5,8 +5,8 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-import com.favoride.application.FindJourneyService;
-import com.favoride.application.LoginService;
+import com.favoride.application.SearchService;
+import com.favoride.application.UserService;
 import com.favoride.domain.Journey;
 import com.favoride.domain.User;
 
@@ -22,11 +22,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * ***********************************************************************
+ * Nom ...........: SearchResultController.java
+ * Description ...: Classe permettant la gestion de la logique de la vue 
+ * ...............: SearchResult.fxml
+ * Auteur(s) .....: SIMON BACQUET & YACINE CHTAIRI
+ * Version .......: 1.0
+ ***********************************************************************
+ */
+
 public class SearchResultController implements Initializable {
 	
-	private FindJourneyService journeyService;
+	private SearchService journeyService;
 	
-	private LoginService userService;
+	private UserService userService;
 	
 	@FXML 
 	private Label lblStatus;
@@ -44,15 +54,14 @@ public class SearchResultController implements Initializable {
 	
 	public SearchResultController() {
 		
-		this.journeyService = FindJourneyService.getInstance();
-		this.userService = LoginService.getInstance();
+		this.journeyService = SearchService.getInstance();
+		this.userService = UserService.getInstance();
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		//TableColumn<Journey, User> nameColumn = new TableColumn<Journey, Integer>("ID");
-		//nameColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+		
+		// On initialise la TableView
 		TableColumn<Journey, User> driverColumn = new TableColumn<Journey, User>("Conducteur");
 		driverColumn.setCellValueFactory(new PropertyValueFactory<>("driver"));
 		TableColumn<Journey, String> departureColumn = new TableColumn<Journey, String>("Départ");
@@ -73,6 +82,7 @@ public class SearchResultController implements Initializable {
 		tvJourneys.getColumns().add(rateColumn);
 		tvJourneys.getColumns().add(seatsColumn);
 	 
+		// On memorise le trajet clique
         tvJourneys.setRowFactory(tv -> {
             TableRow<Journey> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -87,6 +97,7 @@ public class SearchResultController implements Initializable {
         
         tvJourneys.getItems().addAll(this.journeyService.getJourneys());
         
+        // Aucun resultat a afficher
         if(this.journeyService.getJourneys().isEmpty()) {
         	tvJourneys.setVisible(false);
         	this.btnSubscribe.setVisible(false);
@@ -94,6 +105,9 @@ public class SearchResultController implements Initializable {
         }  	
 	}
 	
+	/**
+	 * Ajoute un passager au trajet selectionne en base de donnees
+	 */
 	@FXML
 	public void subscribe() {
 		
@@ -102,7 +116,7 @@ public class SearchResultController implements Initializable {
 			if(this.journeyService.addPassenger(this.selectedJourney.getId(), this.userService.getUser().getId())){
 				
 				try {
-					AnchorPane pane = FXMLLoader.load(this.getClass().getResource("/view/Find.fxml"));
+					AnchorPane pane = FXMLLoader.load(this.getClass().getResource("/view/Search.fxml"));
 					AnchorPane.setLeftAnchor(pane, 0.0);
 					AnchorPane.setTopAnchor(pane, 0.0);
 				    AnchorPane.setRightAnchor(pane, 0.0);

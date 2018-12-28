@@ -10,15 +10,15 @@
   	  <version>8.0.12</version>
    	</dependency>
 	<dependency>
-	 <groupId>net.rakugakibox.util</groupId>
-	 <artifactId>yaml-resource-bundle</artifactId>
-	 <version>1.1</version>
+	  <groupId>net.rakugakibox.util</groupId>
+	  <artifactId>yaml-resource-bundle</artifactId>
+	  <version>1.1</version>
 	</dependency>
 	<dependency>
-    <groupId>org.controlsfx</groupId>
-    <artifactId>controlsfx</artifactId>
-    <version>8.20.8</version>
-</dependency>
+      <groupId>org.controlsfx</groupId>
+      <artifactId>controlsfx</artifactId>
+      <version>8.20.8</version>
+	</dependency>
   </dependencies>
   <build>
     <plugins>
@@ -75,6 +75,18 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+       	  <groupId>org.apache.maven.plugins</groupId>
+       	  <artifactId>maven-jar-plugin</artifactId>
+       	  <version>3.0.2</version>
+       	  <configuration>
+       	    <archive>
+       	      <manifest>
+       	        <mainClass>com.favoride.Main</mainClass>
+       	      </manifest>
+       	    </archive>
+       	  </configuration>
+       	</plugin>
     </plugins>
   </build>
 </project>

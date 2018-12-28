@@ -10,18 +10,32 @@ import java.util.List;
 import com.favoride.domain.Journey;
 import com.favoride.domain.User;
 
+/**
+ * ***********************************************************************
+ * Nom ...........: JourneyMapper.java
+ * Description ...: Classe de type Mapper permettant d'accéder aux donnees
+ * ...............: concernant les trajets (Singleton)
+ * Auteur(s) .....: SIMON BACQUET & YACINE CHTAIRI
+ * Version .......: 1.0
+ ***********************************************************************
+ */
+
 public class JourneyMapper extends GenericMapper {
 
-	public static JourneyMapper instance = null;
+	private static JourneyMapper instance = null;
 	
 	private UserMapper userMapper;
 	
-	private JourneyMapper() {
+	public JourneyMapper() {
 		
 		super();
 		this.userMapper = UserMapper.getInstance();
 	}
 	
+	/**
+	 * Retourne l'instance de la classe
+	 * @return
+	 */
 	public static JourneyMapper getInstance() {
 		
 		if(instance == null)
@@ -30,6 +44,11 @@ public class JourneyMapper extends GenericMapper {
 		return instance;
 	}
 	
+	/**
+	 * Insere un trajet dans la base de donnees
+	 * @param journey
+	 * @throws SQLException
+	 */
 	public void insertJourney(Journey journey) throws SQLException {
 				
 		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("insert.journey"));
@@ -42,15 +61,31 @@ public class JourneyMapper extends GenericMapper {
 		preparedStatement.executeUpdate();		
 	}
 	
+	/**
+	 * Renvoie une liste de trajets selectionnes selon plusieurs criteres
+	 * @param id
+	 * @param departure
+	 * @param arrival
+	 * @param date
+	 * @param rate
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<Journey> findJourneysByCriterias(int id, String departure, String arrival, LocalDateTime date, Double rate) throws SQLException{
 		
 		List<Journey> journeys = new ArrayList<Journey>();
 		
+		// On accede a la requete
 		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journeys.by.criterias"));
+		// Le trajet ne doit pas concerner l'utilisateur
 		preparedStatement.setInt(1, id);
+		// La ville de depart doit correspondre
 		preparedStatement.setString(2, departure);
+		// La ville d'arrivee doit correspondre
 		preparedStatement.setString(3, arrival);
+		// La date doit etre superieure ou egale
 		preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(date));
+		// Le prix doit etre egal ou inferieur
 		preparedStatement.setDouble(5, rate);
         ResultSet rs = preparedStatement.executeQuery();
         
@@ -62,6 +97,12 @@ public class JourneyMapper extends GenericMapper {
 		return journeys;
 	}
 	
+	/**
+	 * Cree un objet Trajet selon un objet ResultSet
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private Journey createJourney(ResultSet rs) throws SQLException {
 		
 		Journey journey = new Journey();
@@ -72,126 +113,56 @@ public class JourneyMapper extends GenericMapper {
 		journey.setDate(rs.getTimestamp("jrn_date").toLocalDateTime());
 		journey.setRate(rs.getDouble("jrn_rate"));
 		journey.setSeats(rs.getInt("jrn_seats"));
+		journey.setPassengers(getPassengers(rs.getInt("jrn_id")));
 		return journey;
 	}
 	
+	/**
+	 * Decremente le nombre de places restantes d'un trajet selon son id
+	 * @param id
+	 * @throws SQLException
+	 */
 	public void decrementSeats(int id) throws SQLException {
 		
+		// On accede a la requete
 		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("update.journey.decrement.seats"));
 		preparedStatement.setInt(1, id);
 		preparedStatement.executeUpdate();
 	}
 	
+	/**
+	 * Insere un passager selon un trajet en base de donnees
+	 * @param journeyId
+	 * @param passengerId
+	 * @throws SQLException
+	 */
 	public void addPassenger(int journeyId, int passengerId) throws SQLException {
 		
+		// On accede a la requete
 		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("insert.passenger"));
 		preparedStatement.setInt(1, journeyId);
 		preparedStatement.setInt(2, passengerId);
 		preparedStatement.executeUpdate();
 	}
 	
-	public List<Journey> getPastJourneysConductor(int id) throws SQLException{
+	/**
+	 * Supprime un trajet de la base de donnees
+	 * @param journeyId
+	 * @throws SQLException
+	 */
+	public void deleteJourney(int journeyId) throws SQLException {
 		
-		List<Journey> journeys = new ArrayList<Journey>();
-		
-		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.past.conductor"));
-		preparedStatement.setInt(1, id);
-		preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(LocalDateTime.now()));
-        ResultSet rs = preparedStatement.executeQuery();
-        
-		while(rs.next()) {
-			
-			journeys.add(createJourney(rs));
-		}
-		
-		return journeys;
+		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("delete.journey.by.id"));
+		preparedStatement.setInt(1, journeyId);
+		preparedStatement.executeUpdate();
 	}
 	
-	public List<Journey> getNowJourneysConductor(int id) throws SQLException{
-		
-		List<Journey> journeys = new ArrayList<Journey>();
-		
-		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.now.conductor"));
-		preparedStatement.setInt(1, id);
-		preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
-        ResultSet rs = preparedStatement.executeQuery();
-        
-		while(rs.next()) {
-			
-			journeys.add(createJourney(rs));
-		}
-		
-		return journeys;
-	}
-	
-	public List<Journey> getFutureJourneysConductor(int id) throws SQLException{
-		
-		List<Journey> journeys = new ArrayList<Journey>();
-		
-		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.future.conductor"));
-		preparedStatement.setInt(1, id);
-		preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
-        ResultSet rs = preparedStatement.executeQuery();
-        
-		while(rs.next()) {
-			
-			journeys.add(createJourney(rs));
-		}
-		
-		return journeys;
-	}
-	
-	public List<Journey> getPastJourneysPassenger(int id) throws SQLException{
-		
-		List<Journey> journeys = new ArrayList<Journey>();
-		
-		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.past.passenger"));
-		preparedStatement.setInt(1, id);
-		preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
-        ResultSet rs = preparedStatement.executeQuery();
-        
-		while(rs.next()) {
-			
-			journeys.add(createJourney(rs));
-		}
-		
-		return journeys;
-	}
-	
-	public List<Journey> getNowJourneysPassenger(int id) throws SQLException{
-		
-		List<Journey> journeys = new ArrayList<Journey>();
-		
-		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.now.passenger"));
-		preparedStatement.setInt(1, id);
-		preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
-        ResultSet rs = preparedStatement.executeQuery();
-        
-		while(rs.next()) {
-			
-			journeys.add(createJourney(rs));
-		}
-		
-		return journeys;
-	}
-	
-	public List<Journey> getFutureJourneysPassenger(int id) throws SQLException{
-		
-		List<Journey> journeys = new ArrayList<Journey>();
-		
-		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.future.passenger"));
-		preparedStatement.setInt(1, id);
-		preparedStatement.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
-        ResultSet rs = preparedStatement.executeQuery();
-        
-		while(rs.next()) {
-			
-			journeys.add(createJourney(rs));
-		}
-		
-		return journeys;
-	}
-	
+	/** 
+	 * Retourne la liste de passagers pour un trajet
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<User> getPassengers(int id) throws SQLException{
 		
 		List<User> passengers = new ArrayList<User>();
@@ -205,5 +176,49 @@ public class JourneyMapper extends GenericMapper {
 		}
 		
 		return passengers;
+	}
+	
+	/**
+	 * Retourne la liste des trajets d'un utilisateur en tant que conducteur
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Journey> getJourneysAsConductor(int id) throws SQLException {
+		
+		List<Journey> journeys = new ArrayList<Journey>();
+		
+		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.conductor"));
+		preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        
+		while(rs.next()) {
+			
+			journeys.add(createJourney(rs));
+		}
+		
+		return journeys;
+	}
+	
+	/**
+	 * Retourne la liste des trajets d'un utilisateur en tant que passager
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Journey> getJourneysAsPassenger(int id) throws SQLException {
+		
+		List<Journey> journeys = new ArrayList<Journey>();
+		
+		PreparedStatement preparedStatement = conn.prepareStatement(this.bundle.getString("select.journey.passenger"));
+		preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        
+		while(rs.next()) {
+			
+			journeys.add(createJourney(rs));
+		}
+		
+		return journeys;
 	}
 }

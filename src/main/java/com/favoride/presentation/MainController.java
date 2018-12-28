@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.favoride.application.LoginService;
+import com.favoride.application.UserService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,24 +17,29 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * ***********************************************************************
+ * Nom ...........: MainController.java
+ * Description ...: Classe permettant la gestion de la logique de la vue 
+ * ...............: Main.fxml
+ * Auteur(s) .....: SIMON BACQUET & YACINE CHTAIRI
+ * Version .......: 1.0
+ ***********************************************************************
+ */
+
 public class MainController implements Initializable {
 
-	@FXML
-    private Button btnPanel1;
-    @FXML
-    private Button btnPanel2;
-    @FXML
-    private Button btnPanel3;
     @FXML
     private AnchorPane showPane;
     
-    private LoginService userService;
+    private UserService userService;
     
     public MainController() {
     	
-    	this.userService = LoginService.getInstance();
+    	this.userService = UserService.getInstance();
     }
    
+    // On initialise l'AnchorPane avec la vue de profil
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -46,6 +51,10 @@ public class MainController implements Initializable {
 		}	   
 	}
 	
+	/**
+	  * Redirige vers la vue de profil
+	  * @param event
+	  */
 	 @FXML
 	 private void btnPanel1Action(ActionEvent event) throws IOException {
 		 
@@ -57,8 +66,10 @@ public class MainController implements Initializable {
 		}
 	 }
 		
-	
-	 
+	 /**
+	  * Redirige vers la vue de proposition de trajets
+	  * @param event
+	  */
 	 @FXML
 	 private void btnPanel2Action(ActionEvent event) throws IOException {
 		 
@@ -70,17 +81,25 @@ public class MainController implements Initializable {
 			}
 	    }
 	 
+	 /**
+	  * Redirige vers la vue de recherche de trajets
+	  * @param event
+	  */
 	 @FXML
 	 private void btnPanel3Action(ActionEvent event) {
 		 
 		 try {
-			changeAnchor("/view/Find.fxml");
+			changeAnchor("/view/Search.fxml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	 }
 	 
+	 /**
+	  * Redirige vers la vue des trajets
+	  * @param event
+	  */
 	 @FXML
 	 private void btnPanel4Action(ActionEvent event) {
 		 
@@ -92,6 +111,10 @@ public class MainController implements Initializable {
 		}
 	 }
 	 
+	 /**
+	  * Deconnecte un utilisateur et redirige vers la page de connexion
+	  * @param event
+	  */
 	 @FXML
 	 private void disconnect(ActionEvent event) {
 		 
@@ -110,8 +133,11 @@ public class MainController implements Initializable {
 			}
 	 }
 	 
-	 
-	 
+	 /**
+	  * Modifie le contenu de l'AnchorPane
+	  * @param anchor
+	  * @throws IOException
+	  */
 	 private void changeAnchor(String anchor) throws IOException {
 		 
 		 AnchorPane pnlOne = FXMLLoader.load(this.getClass().getResource(anchor));

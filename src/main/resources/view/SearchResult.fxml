@@ -7,8 +7,8 @@
 
 <AnchorPane fx:id="myPane" maxHeight="600.0" maxWidth="650.0" minHeight="600.0" minWidth="650.0" prefHeight="600.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.favoride.presentation.SearchResultController">
    <children>
-      <Label fx:id="lblStatus" layoutX="308.0" layoutY="100.0" text="Label" />
-      <TableView fx:id="tvJourneys" layoutX="132.0" layoutY="217.0" prefHeight="200.0" prefWidth="353.0" />
+      <Label fx:id="lblStatus" layoutX="230.0" layoutY="137.0" text="Résultats de la recherche" />
+      <TableView fx:id="tvJourneys" layoutX="49.0" layoutY="234.0" prefHeight="200.0" prefWidth="553.0" />
       <Button fx:id="btnSubscribe" layoutX="271.0" layoutY="469.0" mnemonicParsing="false" onAction="#subscribe" text="S'inscrire" />
    </children>
 </AnchorPane>

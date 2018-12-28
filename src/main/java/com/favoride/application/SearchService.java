@@ -8,27 +8,52 @@ import java.util.List;
 import com.favoride.domain.Journey;
 import com.favoride.persistence.JourneyMapper;
 
-public class FindJourneyService {
+/**
+ * ***********************************************************************
+ * Nom ...........: SearchService.java
+ * Description ...: Classe permettant d'effectuer les methodes utiles
+ * ...............: a la logique concernant la recherche de trajets
+ * ...............: (Singleton)
+ * Auteur(s) .....: SIMON BACQUET & YACINE CHTAIRI
+ * Version .......: 1.0
+ ***********************************************************************
+ */
 
-	public static FindJourneyService instance = null;
+public class SearchService {
+
+	public static SearchService instance = null;
 	
+	// Liste de trajets trouves
 	private List<Journey> journeys;
 	
 	private JourneyMapper journeyMapper;
 	
-	private FindJourneyService() {
+	private SearchService() {
 		
 		this.journeyMapper = JourneyMapper.getInstance();
 	}
 	
-	public static FindJourneyService getInstance() {
+	/**
+	 * Retourne l'instance courante de la classe
+	 * @return
+	 */
+	public static SearchService getInstance() {
 		
 		if(instance == null)
-			instance = new FindJourneyService();
+			instance = new SearchService();
 		
 		return instance;
 	}
 	
+	/**
+	 * Remplit la liste de trajets avec les trajets trouves depuis la base de donnees
+	 * @param id Le conducteur
+	 * @param departure La ville de depart
+	 * @param arrival La ville d'arrivee
+	 * @param date La date de depart
+	 * @param rate Le prix maximum
+	 * @return La confirmation de recherche
+	 */
 	public boolean getResultFromSearch(int id, String departure, String arrival, LocalDateTime date, Double rate) {
 		
 		journeys = new ArrayList<Journey>();
@@ -45,11 +70,21 @@ public class FindJourneyService {
 		return true;
 	}
 	
+	/**
+	 * Retourne la liste de trajets trouves
+	 * @return
+	 */
 	public List<Journey> getJourneys() {
 		
 		return this.journeys;
 	}
 	
+	/**
+	 * Ajoute un utilisateur a un trajet et decremente le nombre de places
+	 * @param journeyId L'id du trajet
+	 * @param passengerId L'id de l'utilisateur
+	 * @return La confirmation d'ajout
+	 */
 	public boolean addPassenger(int journeyId, int passengerId) {
 		
 		try {

@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.favoride.presentation.LoginController">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.favoride.presentation.LoginController">
    <children>
-      <Button layoutX="100.0" layoutY="215.0" mnemonicParsing="false" onAction="#login" text="Se connecter" />
-      <PasswordField fx:id="txtPassword" layoutX="67.0" layoutY="137.0" promptText="Mot de passe" />
-      <TextField fx:id="txtUserAddress" layoutX="67.0" layoutY="87.0" promptText="Adresse e-mail" />
-      <Label fx:id="lblStatus" layoutX="101.0" layoutY="180.0" prefHeight="20.0" prefWidth="100.0" textFill="RED" />
+      <Button layoutX="357.0" layoutY="390.0" mnemonicParsing="false" onAction="#login" text="Se connecter" />
+      <PasswordField fx:id="txtPassword" layoutX="307.0" layoutY="303.0" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="Mot de passe" />
+      <TextField fx:id="txtUserAddress" layoutX="309.0" layoutY="244.0" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="Adresse e-mail" />
+      <Label fx:id="lblStatus" layoutX="372.0" layoutY="353.0" prefHeight="17.0" prefWidth="71.0" textFill="RED" AnchorPane.bottomAnchor="230.0" AnchorPane.topAnchor="353.0" />
+      <ImageView fitHeight="152.0" fitWidth="336.0" layoutX="269.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/images/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="362.0" layoutY="189.0" text="Connexion">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
